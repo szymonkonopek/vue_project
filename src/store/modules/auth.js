@@ -8,37 +8,50 @@ const state = {
   validationErrors: null,
 };
 
+export const mutationType = {
+  registerStart: "[auth] Register start",
+  registerSuccess: "[auth] Register success",
+  registerFailure: "[auth] Register failure",
+};
+
 const mutations = {
-  registerStart(state) {
+  [mutationType.registerStart](state) {
     state.isSubmitting = true;
     state.validationErrors = null;
   },
-  registerSuccess(state, payload) {
+  [mutationType.registerSuccess](state, payload) {
     state.isSubmitting = false;
     state.isLoggedIn = true;
     state.currentUser = payload;
   },
-  registerFailure(state, payload) {
+  [mutationType.registerFailure](state, payload) {
     state.isSubmitting = false;
     state.validationErrors = payload;
   },
 };
 
+export const actionTypes = {
+  register: "[auth] Register",
+};
+
 const actions = {
-  register(context, credentials) {
-    context.commit("registerStart");
+  [actionTypes.register](context, credentials) {
+    context.commit(mutationType.registerStart);
     return new Promise((resolve) => {
       authApi
         .register(credentials)
         .then((response) => {
-          context.commit("registerSuccess", response.data.user);
+          context.commit(mutationType.registerSuccess, response.data.user);
           // window.localStorage.setItem('accessToken', response.data.user.token)
           setItem("accessToken", response.data.user.token);
           resolve(response.data.user);
         })
         .catch((result) => {
           console.log("fail", result.response.data.errors);
-          context.commit("registerFailure", result.response.data.errors);
+          context.commit(
+            mutationType.registerFailure,
+            result.response.data.errors
+          );
         });
     });
   },

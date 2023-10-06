@@ -12,6 +12,10 @@ export const mutationType = {
   registerStart: "[auth] Register start",
   registerSuccess: "[auth] Register success",
   registerFailure: "[auth] Register failure",
+
+  loginStart: "[auth] Login start",
+  loginSuccess: "[auth] Login Success",
+  loginFailure: "[auth] Login Failure",
 };
 
 const mutations = {
@@ -28,10 +32,24 @@ const mutations = {
     state.isSubmitting = false;
     state.validationErrors = payload;
   },
+  [mutationType.loginStart](state) {
+    state.isSubmitting = true;
+    state.validationErrors = null;
+  },
+  [mutationType.loginSuccess](state, payload) {
+    state.isSubmitting = false;
+    state.isLoggedIn = true;
+    state.currentUser = payload;
+  },
+  [mutationType.loginFailure](state, payload) {
+    state.isSubmitting = false;
+    state.validationErrors = payload;
+  },
 };
 
 export const actionTypes = {
   register: "[auth] Register",
+  login: "[auth] Login",
 };
 
 const actions = {
@@ -50,6 +68,23 @@ const actions = {
           console.log("fail", result.response.data.errors);
           context.commit(
             mutationType.registerFailure,
+            result.response.data.errors
+          );
+        });
+    });
+  },
+  [actionTypes.login](context, credentials) {
+    context.commit(mutationType.loginStart);
+    return new Promise((resolve) => {
+      authApi
+        .login(credentials)
+        .then((response) => {
+          context.commit(mutationType.loginSuccess, response.data.user);
+          resolve(response.data.user);
+        })
+        .catch((result) => {
+          context.commit(
+            mutationType.loginFailure,
             result.response.data.errors
           );
         });

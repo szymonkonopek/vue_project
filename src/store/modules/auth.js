@@ -4,6 +4,7 @@ import { setItem } from "@/helpers/persistanceStorage";
 const state = {
   isSubmitting: false,
   isLoggedIn: null,
+  isLoading: false,
   currentUser: null,
   validationErrors: null,
 };
@@ -16,6 +17,10 @@ export const mutationType = {
   loginStart: "[auth] Login start",
   loginSuccess: "[auth] Login Success",
   loginFailure: "[auth] Login Failure",
+
+  getCurrentUserStart: "[auth] Login start",
+  getCurrentUserSuccess: "[auth] Login Success",
+  getCurrentUserFailure: "[auth] Login Failure",
 };
 
 const mutations = {
@@ -45,11 +50,44 @@ const mutations = {
     state.isSubmitting = false;
     state.validationErrors = payload;
   },
+
+  [mutationType.getCurrentUserStart](state) {
+    state.isLoading = true;
+  },
+  [mutationType.getCurrentUserSuccess](state, payload) {
+    state.isLoading = false;
+    state.isLoggedIn = true;
+    state.currentUser = payload;
+  },
+  [mutationType.getCurrentUserFailure](state) {
+    state.isLoading = true;
+    state.isLoggedIn = false;
+    state.currentUser = null;
+  },
 };
 
 export const actionTypes = {
   register: "[auth] Register",
   login: "[auth] Login",
+  getCurrentUser: "[auth] GetCurrentUser",
+};
+
+export const getterTypes = {
+  currentUser: "[auth] currentUser",
+  isLoggedIn: "[auth] isLoggedIn",
+  isAnonymous: "[auth] isAnonymous",
+};
+
+const getters = {
+  [getterTypes.currentUser]: (state) => {
+    return state.currentUser;
+  },
+  [getterTypes.isLoggedIn]: (state) => {
+    return state.isLoggedIn;
+  },
+  [getterTypes.isAnonymous]: (state) => {
+    return state.isLoggedIn === false;
+  },
 };
 
 const actions = {
@@ -90,10 +128,27 @@ const actions = {
         });
     });
   },
+  [actionTypes.getCurrentUser](context) {
+    context.commit(mutationType.getCurrentUserStart);
+    return new Promise((resolve) => {
+      authApi
+        .getCurrentUser()
+        .then((response) => {
+          context.commit(
+            mutationType.getCurrentUserSuccess,
+            response.data.user
+          );
+          resolve(response.data.user);
+        })
+        .catch(() => {
+          context.commit(mutationType.getCurrentUserFailure);
+        });
+    });
+  },
 };
 export default {
   state,
   actions,
   mutations,
-  // getters
+  getters,
 };

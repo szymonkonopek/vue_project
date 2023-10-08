@@ -18,9 +18,9 @@ export const mutationType = {
   loginSuccess: "[auth] Login Success",
   loginFailure: "[auth] Login Failure",
 
-  getCurrentUserStart: "[auth] Login start",
-  getCurrentUserSuccess: "[auth] Login Success",
-  getCurrentUserFailure: "[auth] Login Failure",
+  getCurrentUserStart: "[auth] Get current user start",
+  getCurrentUserSuccess: "[auth] Get current user Success",
+  getCurrentUserFailure: "[auth] Get current user Failure",
 };
 
 const mutations = {
@@ -49,6 +49,7 @@ const mutations = {
   [mutationType.loginFailure](state, payload) {
     state.isSubmitting = false;
     state.validationErrors = payload;
+    console.log("error2");
   },
 
   [mutationType.getCurrentUserStart](state) {
@@ -121,6 +122,7 @@ const actions = {
           resolve(response.data.user);
         })
         .catch((result) => {
+          console.log("error", result.response.data.errors);
           context.commit(
             mutationType.loginFailure,
             result.response.data.errors

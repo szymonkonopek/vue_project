@@ -1,15 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-import HomeView from "@/views/HomeView.vue";
+import GlobalFeed from "@/views/GlobalFeedView.vue";
 import RegisterView from "@/views/RegisterView.vue";
 import LoginView from "@/views/LoginView.vue";
 
 const routes = [
-  {
-    path: "/",
-    name: "home",
-    component: HomeView,
-  },
   {
     path: "/register",
     name: "register",
@@ -19,6 +14,11 @@ const routes = [
     path: "/login",
     name: "login",
     component: LoginView,
+  },
+  {
+    path: "/",
+    name: "home",
+    component: GlobalFeed,
   },
 ];
 

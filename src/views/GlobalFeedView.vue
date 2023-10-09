@@ -6,8 +6,8 @@
         <div class="col-md-9">Feed</div>
         <div class="col-md-3">Popular Task</div>
       </div>
+      <app-feed :api-url="apiUrl"></app-feed>
     </div>
-    <app-feed :api-url="apiUrl"></app-feed>
   </div>
 </template>
 

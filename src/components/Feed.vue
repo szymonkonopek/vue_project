@@ -41,7 +41,13 @@
           TAG LIST
         </router-link>
       </div>
-      PAGINATION
+      <app-pagination
+        :total="total"
+        :limit="limit"
+        :url="url"
+        :current-page="currentPage"
+      >
+      </app-pagination>
     </div>
   </div>
 </template>
@@ -49,10 +55,14 @@
 <script>
 import { mapState } from "vuex";
 
+import AppPagination from "@/components/Pagination.vue";
 import { actionTypes } from "@/store/modules/feed";
 
 export default {
   name: "McvFeed",
+  components: {
+    AppPagination,
+  },
   props: {
     apiUrl: {
       type: String,
@@ -69,6 +79,14 @@ export default {
   mounted() {
     console.log("feed");
     this.$store.dispatch(actionTypes.getFeed, { apiUrl: this.apiUrl });
+  },
+  data() {
+    return {
+      total: 500,
+      limit: 20,
+      url: "/tags/dragons",
+      currentPage: 5,
+    };
   },
 };
 </script>

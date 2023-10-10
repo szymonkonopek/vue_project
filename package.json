@@ -12,6 +12,7 @@
     "@ionic/vue-router": "^7.4.3",
     "axios": "^1.5.1",
     "core-js": "^3.8.3",
+    "query-string": "^8.1.0",
     "vue": "^3.2.36",
     "vue-router": "^4.0.13",
     "vuex": "^4.0.2"

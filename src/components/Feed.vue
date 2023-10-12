@@ -86,7 +86,7 @@ export default {
     },
     currentPage() {
       console.log(this.$route.query.page);
-      return Number(this.$route.query.page) || "1";
+      return Number(this.$route.query.page || "1");
     },
     offset() {
       return this.currentPage * limit - limit;

@@ -22,7 +22,6 @@ const mutations = {
     state.data = null;
   },
   [mutationTypes.getPopularTagsSuccess](state, paylaod) {
-    console.log("amelia", paylaod);
     state.isLoading = false;
     state.data = paylaod;
   },

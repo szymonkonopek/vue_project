@@ -7,6 +7,7 @@
           <app-feed :api-url="apiUrl"></app-feed>
         </div>
         <div class="col-md-3"><app-popular-tags></app-popular-tags></div>
+        {{ tagName }}
       </div>
     </div>
   </div>
@@ -17,16 +18,19 @@ import AppFeed from "@/components/Feed.vue";
 import AppPopularTags from "@/components/PopularTags.vue";
 import AppBanner from "@/components/Banner.vue";
 export default {
-  name: "AppGlobalFeed",
+  name: "AppTagFeed",
   components: {
     AppFeed,
     AppPopularTags,
     AppBanner,
   },
-  data() {
-    return {
-      apiUrl: "/articles",
-    };
+  computed: {
+    tagName() {
+      return this.$route.params.slug;
+    },
+    apiUrl() {
+      return `/articles?tag=${this.tagName}`;
+    },
   },
 };
 </script>

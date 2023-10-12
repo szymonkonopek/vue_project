@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="isLoading">Loading...</div>
+    <app-loading v-if="isLoading" />
     <div v-if="error">Something bad happed</div>
 
     <div v-if="feed">
@@ -58,11 +58,13 @@ import { limit } from "@/helpers/vars";
 import AppPagination from "@/components/Pagination.vue";
 import { actionTypes } from "@/store/modules/feed";
 import QueryString from "query-string";
+import AppLoading from "@/components/Loading.vue";
 
 export default {
   name: "McvFeed",
   components: {
     AppPagination,
+    AppLoading,
   },
   props: {
     apiUrl: {

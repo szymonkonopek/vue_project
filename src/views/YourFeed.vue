@@ -17,7 +17,7 @@ import AppFeed from "@/components/Feed.vue";
 import AppPopularTags from "@/components/PopularTags.vue";
 import AppBanner from "@/components/Banner.vue";
 export default {
-  name: "AppGlobalFeed",
+  name: "AppYourFeed",
   components: {
     AppFeed,
     AppPopularTags,
@@ -25,7 +25,7 @@ export default {
   },
   data() {
     return {
-      apiUrl: "/articles",
+      apiUrl: "/articles/feed",
     };
   },
 };

@@ -119,6 +119,7 @@ const actions = {
         .login(credentials)
         .then((response) => {
           context.commit(mutationType.loginSuccess, response.data.user);
+          setItem("accessToken", response.data.user.token);
           resolve(response.data.user);
         })
         .catch((result) => {

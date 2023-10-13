@@ -38,7 +38,7 @@
           <h1>{{ article.title }}</h1>
           <p>{{ article.description }}</p>
           <span>Read more...</span>
-          TAG LIST
+          <app-article-tag-list :tagList="article.tagList" />
         </router-link>
       </div>
       <app-pagination
@@ -59,12 +59,14 @@ import AppPagination from "@/components/Pagination.vue";
 import { actionTypes } from "@/store/modules/feed";
 import QueryString from "query-string";
 import AppLoading from "@/components/Loading.vue";
+import AppArticleTagList from "./ArticleTagList.vue";
 
 export default {
   name: "McvFeed",
   components: {
     AppPagination,
     AppLoading,
+    AppArticleTagList,
   },
   props: {
     apiUrl: {

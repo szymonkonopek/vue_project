@@ -6,6 +6,7 @@ import RegisterView from "@/views/RegisterView.vue";
 import LoginView from "@/views/LoginView.vue";
 import TagFeed from "@/views/TagFeed.vue";
 import ArticleView from "@/views/ArticleView";
+import CreateArticle from "@/views/CreateArticleView";
 
 const routes = [
   {
@@ -36,7 +37,7 @@ const routes = [
   {
     path: "/articles/new",
     name: "createArticle",
-    component: GlobalFeed,
+    component: CreateArticle,
   },
   {
     path: "/articles/:slug",

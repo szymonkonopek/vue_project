@@ -7,6 +7,7 @@ import LoginView from "@/views/LoginView.vue";
 import TagFeed from "@/views/TagFeed.vue";
 import ArticleView from "@/views/ArticleView";
 import CreateArticle from "@/views/CreateArticleView";
+import EditArticle from "@/views/EditArticleView";
 
 const routes = [
   {
@@ -47,7 +48,7 @@ const routes = [
   {
     path: "/articles/:slug/edit",
     name: "editArticle",
-    component: GlobalFeed,
+    component: EditArticle,
   },
   {
     path: "/settings",

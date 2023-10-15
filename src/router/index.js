@@ -8,6 +8,7 @@ import TagFeed from "@/views/TagFeed.vue";
 import ArticleView from "@/views/ArticleView";
 import CreateArticle from "@/views/CreateArticleView";
 import EditArticle from "@/views/EditArticleView";
+import Settings from "@/views/SettingsView";
 
 const routes = [
   {
@@ -53,7 +54,7 @@ const routes = [
   {
     path: "/settings",
     name: "settings",
-    component: GlobalFeed,
+    component: Settings,
   },
   {
     path: "/profiles/:slug",
